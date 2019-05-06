@@ -3,18 +3,26 @@ import React, { Component } from 'react'
 class Box extends Component {
   constructor(props) {
     super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(evt) {
+    this.props.removeBox(evt)
   }
 
   render() {
     const styles = {
-      width: this.props.width,
-      height: this.props.height,
-      backgroundColor: this.props.backgroundColor
+      height: `${this.props.height}em`,
+      width: `${this.props.width}em`,
+      backgroundColor: this.props.color
     }
-
-    console.log(styles)
-
-    return <div style={styles} />
+    return (
+      <div>
+        <div style={styles} />
+        <button onClick={this.handleClick}>X</button>
+      </div>
+    )
   }
 }
 
