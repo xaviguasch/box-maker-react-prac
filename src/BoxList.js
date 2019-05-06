@@ -7,40 +7,43 @@ class BoxList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      boxes: [{ width: 10, height: 10, color: 'orange' }]
+      boxes: []
     }
 
-    this.addBox = this.addBox.bind(this)
-    this.removeBox = this.removeBox.bind(this)
+    this.create = this.create.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
-  addBox(box) {
+  create(box) {
     let newBox = { ...box, id: uuid() }
     this.setState(st => ({
       boxes: [...st.boxes, newBox]
     }))
   }
 
-  removeBox(box) {
-    console.log('removeBox got clicked', box)
+  remove(id) {
+    this.setState({
+      boxes: this.state.boxes.filter(box => box.id !== id)
+    })
   }
 
   render() {
     const boxes = this.state.boxes.map(box => {
       return (
         <Box
+          key={box.id}
+          id={box.id}
           color={box.color}
           height={box.height}
           width={box.width}
-          key={box.id}
-          removeBox={this.removeBox}
+          removeBox={this.remove}
         />
       )
     })
     return (
       <div>
         <h1>Color Box Baker Thingy</h1>
-        <NewFormBox addBox={this.addBox} />
+        <NewFormBox createBox={this.create} />
         {boxes}
       </div>
     )

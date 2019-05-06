@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import uuid from 'uuid/v4'
 
 class NewFormBox extends Component {
   constructor(props) {
@@ -14,8 +15,9 @@ class NewFormBox extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.addBox(this.state)
-    this.setState({ width: '', height: '', backgroundColor: '' })
+    const newBox = { ...this.state, id: uuid() }
+    this.props.createBox(newBox)
+    this.setState({ width: '', height: '', backgroundColor: '', color: '' })
   }
 
   handleChange(evt) {
@@ -26,17 +28,27 @@ class NewFormBox extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
+        <div>
           <label htmlFor='width'>Width: </label>
-          <input name='width' id='width' value={this.state.width} onChange={this.handleChange} />
+          <input type='text' name='width' id='width' value={this.state.width} onChange={this.handleChange} />
+        </div>
+        <div>
           <label htmlFor='height'>Height: </label>
-          <input name='height' id='height' value={this.state.height} onChange={this.handleChange} />
+          <input
+            type='text'
+            name='height'
+            id='height'
+            value={this.state.height}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div>
           <label htmlFor='color'>Color: </label>
-          <input name='color' id='color' value={this.state.color} onChange={this.handleChange} />
-          <button>Box!</button>
-        </form>
-      </div>
+          <input type='text' name='color' id='color' value={this.state.color} onChange={this.handleChange} />
+        </div>
+        <button>Add New Box!</button>
+      </form>
     )
   }
 }

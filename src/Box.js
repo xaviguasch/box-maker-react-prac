@@ -7,8 +7,8 @@ class Box extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(evt) {
-    this.props.removeBox(evt)
+  handleClick() {
+    this.props.removeBox(this.props.id)
   }
 
   render() {
